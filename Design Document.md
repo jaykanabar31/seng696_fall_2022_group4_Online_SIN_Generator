@@ -26,4 +26,3 @@ The generated SIN along with the passport number and an expiry date will be save
 After successful insert/update, SIN pdf is displayed on the screen and the user can download the pdf from the portal.
 
 
-![image](https://user-images.githubusercontent.com/98139884/195769581-f6cb07b3-1ee8-4a3d-a15e-ee39c20fe7ee.png)
