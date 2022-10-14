@@ -5,6 +5,23 @@ Online Social Insurance Number (SIN) generation system.
 
 Group 4: Members: Jay Sudhirkumar Kanabar Shivam Gupta Vedant Gupta S M Azmi Hoque
 
+
+
+Requirements: 
+
+There are 5 actors - agents that are required in the project as given below: 
+
+User Agent 
+
+Verification Agent 
+
+Authorization Agent 
+
+Database Agent 
+
+SIN Generator Agent 
+
+
 Scope:
 
 The scope of this project is to create a web application for immigrants and citizens to generate their Social Insurance Number (SIN) online instead of physically going to Service Canada. Any person with valid documents can do the SIN generation process online within Canada.
