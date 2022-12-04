@@ -19,6 +19,7 @@ permitExpiry = ""
 
 loginPageFrame = tk.Frame
 
+
 class loginPage(loginPageFrame):
     # Callbacks Here
     def Button1_Callback(self, controller):
@@ -50,6 +51,7 @@ class loginPage(loginPageFrame):
                 self.minsize(120, 1)
                 self.maxsize(3844, 1071)
                 self.resizable(1, 1)
+                self.title("SIN GENERATION PORTAL")
                 self.configure(background="#a6a6a6")
                 self.configure(highlightbackground="#efcefd")
                 self.configure(highlightcolor="#fff7c6")
@@ -60,7 +62,7 @@ class loginPage(loginPageFrame):
                 self.Message1.configure(borderwidth="5")
                 self.Message1.configure(cursor="fleur")
                 self.Message1.configure(font="-family {Segoe UI} -size 34 -weight bold -underline 1")
-                self.Message1.configure (justify='center')
+                self.Message1.configure(justify='center')
                 self.Message1.configure(relief="groove")
                 self.Message1.configure(text='''SIN Registration Form''')
                 self.Message1.configure(width=1300)
@@ -195,19 +197,8 @@ class loginPage(loginPageFrame):
                 self.Entry6.configure(foreground="#000000")
                 self.Entry6.configure(textvariable="study_permit_expiry")
 
-                self.Button7 = tk.Button(self)
-                self.Button7.place(relx=0.040, rely=0.65, height=45, width=200)
-                self.Button7.configure(background="#1eee52")
-                self.Button7.configure(borderwidth="3")
-                self.Button7.configure(command=lambda: Submit(self))
-                self.Button7.configure(cursor="hand2")
-                self.Button7.configure(font="-family {Segoe UI} -size 15 -weight bold")
-                self.Button7.configure(highlightcolor="black")
-                self.Button7.configure(text="Submit")
-
             # Call here to verification agent to check data
-
-            def Submit(self):
+            def Submit():
                 global firstName
                 global lastName
                 global passportNumber
@@ -227,41 +218,43 @@ class loginPage(loginPageFrame):
                 print("Study Permit Number:" + permitNumber)
                 print("Study Permit Expiry:" + permitExpiry)
 
-                print(ReceivedData,"Data from jwt_agent")
+                print(ReceivedData, "Data from jwt_agent")
                 CommData = ":" + firstName + ":" + lastName
 
-                if(ReceivedData and ReceivedData == "user authenticated"):
+                if (ReceivedData and ReceivedData == "user authenticated"):
                     print("Calling Verification agent with data: ", CommData)
 
-                    VerificationData = user_agent.RequestData(AgentCommunication.userAgentID, AgentCommunication.verificationAgentID,
-                                                          AgentCommunication.UserCreateVerificationCommandId
-                                                          , AgentCommunication.SuccessAckID, CommData)
+                    VerificationData = user_agent.RequestData(AgentCommunication.userAgentID,
+                                                              AgentCommunication.verificationAgentID,
+                                                              AgentCommunication.UserCreateVerificationCommandId
+                                                              , AgentCommunication.SuccessAckID, CommData)
 
                     print("Response from verification agent: ", VerificationData)
-                # Database agent used to create a new account
-                    if(VerificationData == "No SIN exists"):
+                    # Database agent used to create a new account
+                    if (VerificationData == "No SIN exists"):
                         userData = ":" + firstName + ":" + lastName + ":" + passportNumber + ":" + dateOfBirth + ":" + permitNumber + ":" + permitExpiry
                         print("Calling Database agent with data: ", userData)
-                        
-                        dataBaseResp = user_agent.RequestData(AgentCommunication.userAgentID, AgentCommunication.databaseAgentID,
+
+                        dataBaseResp = user_agent.RequestData(AgentCommunication.userAgentID,
+                                                              AgentCommunication.databaseAgentID,
                                                               AgentCommunication.UserCreateDatabaseCommandId
                                                               , AgentCommunication.SuccessAckID, userData)
 
                         print("Response from database agent: ", dataBaseResp)
                     else:
                         tkinter.messagebox.showerror(title="Error", message="SIN number already exists")
-                # sin agent call to create a sin number
+                    # sin agent call to create a sin number
                     if (dataBaseResp == "success"):
                         userData = ":" + firstName + ":" + lastName
                         print("Calling SIN agent with data: ", userData)
 
                         sinData = user_agent.RequestData(AgentCommunication.userAgentID, AgentCommunication.sinAgentId,
-                                                          AgentCommunication.UserCreateSinCommandId
-                                                          , AgentCommunication.SuccessAckID, userData)
+                                                         AgentCommunication.UserCreateSinCommandId
+                                                         , AgentCommunication.SuccessAckID, userData)
 
                         print("Response from SIN agent: ", sinData)
 
-                    if(not (sinData == "" and len(sinData) < 9)):
+                    if (not (sinData == "" and len(sinData) < 9)):
                         manSin = sinData
                         final_w = tk.Tk()
                         final_w.geometry(
@@ -276,7 +269,15 @@ class loginPage(loginPageFrame):
                 else:
                     tkinter.messagebox.showerror(title="Error", message="Wrong Username or Password")
 
-
+            self.Button7 = tk.Button(self)
+            self.Button7.place(relx=0.040, rely=0.65, height=45, width=200)
+            self.Button7.configure(background="#1eee52")
+            self.Button7.configure(borderwidth="3")
+            self.Button7.configure(command=Submit)
+            self.Button7.configure(cursor="hand2")
+            self.Button7.configure(font="-family {Segoe UI} -size 15 -weight bold")
+            self.Button7.configure(highlightcolor="black")
+            self.Button7.configure(text="Submit")
 
     def UpdateEntryData(self):
         application.userName = self.Entry1.get()
@@ -356,4 +357,3 @@ class loginPage(loginPageFrame):
         self.Button3.configure(font="-family {Segoe UI} -size 23 -weight bold")
         self.Button3.configure(highlightcolor="black")
         self.Button3.configure(text="Login")
-
