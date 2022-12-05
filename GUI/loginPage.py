@@ -197,8 +197,18 @@ class loginPage(loginPageFrame):
                 self.Entry6.configure(foreground="#000000")
                 self.Entry6.configure(textvariable="study_permit_expiry")
 
+                self.Button7 = tk.Button(self)
+                self.Button7.place(relx=0.040, rely=0.65, height=45, width=200)
+                self.Button7.configure(background="#1eee52")
+                self.Button7.configure(borderwidth="3")
+                self.Button7.configure(command=lambda: Submit(self))
+                self.Button7.configure(cursor="hand2")
+                self.Button7.configure(font="-family {Segoe UI} -size 15 -weight bold")
+                self.Button7.configure(highlightcolor="black")
+                self.Button7.configure(text="Submit")
+
             # Call here to verification agent to check data
-            def Submit():
+            def Submit(self):
                 global firstName
                 global lastName
                 global passportNumber
@@ -269,15 +279,7 @@ class loginPage(loginPageFrame):
                 else:
                     tkinter.messagebox.showerror(title="Error", message="Wrong Username or Password")
 
-            self.Button7 = tk.Button(self)
-            self.Button7.place(relx=0.040, rely=0.65, height=45, width=200)
-            self.Button7.configure(background="#1eee52")
-            self.Button7.configure(borderwidth="3")
-            self.Button7.configure(command=Submit)
-            self.Button7.configure(cursor="hand2")
-            self.Button7.configure(font="-family {Segoe UI} -size 15 -weight bold")
-            self.Button7.configure(highlightcolor="black")
-            self.Button7.configure(text="Submit")
+
 
     def UpdateEntryData(self):
         application.userName = self.Entry1.get()
@@ -357,3 +359,4 @@ class loginPage(loginPageFrame):
         self.Button3.configure(font="-family {Segoe UI} -size 23 -weight bold")
         self.Button3.configure(highlightcolor="black")
         self.Button3.configure(text="Login")
+
