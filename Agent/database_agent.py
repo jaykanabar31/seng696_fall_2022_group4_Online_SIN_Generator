@@ -41,7 +41,7 @@ class DatabaseAgentClass(Agent):
 
                     print("Response from the Database agent after saving data: ", Response)
 
-                    # Send response to Webportal agent
+                    # Send response to userportal agent
                     msg.body = Response
 
                 print("DatabaseAgent:DatabaseAgentBehaviour:run:msg:response:\"{}\"".format(msg.body))
